@@ -15,7 +15,7 @@ class UI {
     const list = document.getElementById('customer-list');
     // Create tr element
     const row = document.createElement('tr');
-    row.id=`row_bg${total}`;
+    row.id=`rowbg${total}_${customer.ie}_${customer.amount}`;
     // Insert cols
     row.innerHTML = `
       <td>${customer.ie}</td>
@@ -60,12 +60,12 @@ class UI {
     document.getElementById("myTextArea").value = '';
   }
 
-  color_green() {
-    document.getElementById(`row_bg${total}`).style = "background-color:green";
+  color_green(ie,amount) {
+    document.getElementById(`rowbg${total}_${ie}_${amount}`).style = "background-color:green";
   }
 
-  color_red(num) {
-    document.getElementById(`row_bg${total}`).style = "background-color:red";
+  color_red(ie,amount) {
+    document.getElementById(`rowbg${total}_${ie}_${amount}`).style = "background-color:red";
   }
 
   
@@ -110,8 +110,8 @@ document.getElementById('customer-form').addEventListener('submit', function(e){
       ui.addCustomerToList(customer);
     }
 
-    if (ie === "I") ui.color_green();
-    else ui.color_red();
+    if (ie === "I") ui.color_green(ie,amount);
+    else ui.color_red(ie,amount);
 
   }
   const ui = new UI();
@@ -126,8 +126,18 @@ document.getElementById('customer-form').addEventListener('submit', function(e){
 document.getElementById('customer-list').addEventListener('click', function(e){
   // Instantiate UI
   const ui = new UI();
-  
-  // Delete customer
+  // console.log(typeof(e.target.parentElement.parentElement.id));
+  const p1=  e.target.parentElement.parentElement.id ;
+  var p2 = p1.split("_");
+  // console.log(p2);
+  const ie = p2[1];
+  const amount = p2[2];
+  var exp = parseInt(amount);
+    if (ie === "E") {
+      Expense-=exp;
+    }
+    else Income-=exp;
+   // Delete customer
   ui.deletecustomer(e.target);
 
   // Show message
