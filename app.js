@@ -76,7 +76,7 @@ document.getElementById('customer-form').addEventListener('submit', function(e){
 
   myValue = document.getElementById("myTextArea").value;
   //Get the rows into array
-  therows = myValue.split(" ");
+  therows = myValue.split("\n");
   // Loop over all the rows
   var amoun = "";
   for (var row = 1; row < therows.length; row++) {
